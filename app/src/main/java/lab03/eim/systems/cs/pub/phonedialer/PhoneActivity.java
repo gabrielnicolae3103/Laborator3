@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PhoneActivity extends AppCompatActivity {
 
@@ -113,6 +114,16 @@ public class PhoneActivity extends AppCompatActivity {
         }
     }
 
+    public void contact(View V) {
+        if (phoneNumber.length() > 0) {
+            Intent intent = new Intent("ro.pub.cs.systems.eim.lab04.contactsmanager.intent.action.MainActivity");
+            intent.putExtra("ro.pub.cs.systems.eim.lab04.contactsmanager.PHONE_NUMBER_KEY", phoneNumber);
+            startActivityForResult(intent, Constants.CONTACTS_MANAGER_REQUEST_CODE);
+        } else {
+            Toast.makeText(getApplication(), getResources().getString(R.string.phone_error), Toast.LENGTH_LONG).show();
+        }
+    }
+
     public class Input implements View.OnClickListener {
 
         @Override
@@ -123,5 +134,9 @@ public class PhoneActivity extends AppCompatActivity {
                 default:
             }
         }
+    }
+
+    public class Constants {
+        public static final int CONTACTS_MANAGER_REQUEST_CODE = 0;
     }
 }
